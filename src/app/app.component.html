@@ -1,0 +1,42 @@
+<div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <!-- Header section containing logo -->
+    <header class="mdl-layout__header mdl-color-text--white mdl-color--light-blue-700">
+        <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-grid">
+            <div class="mdl-layout__header-row mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
+                <h4>Guess The Number </h4>
+            </div>
+            <div id="user-container">
+                <div *ngIf="currentUser" id="user-pic" [ngStyle]="profilePicStyles"></div>
+                <div *ngIf="currentUser" id="user-name">{{ (af.auth | async)?.auth.displayName }}</div>
+                <button *ngIf="currentUser" id="sign-out" (click)="logout()" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
+          Sign-out
+        </button>
+                <button *ngIf="!currentUser" id="sign-in" (click)="login()" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
+          <i class="material-icons">account_circle</i>Sign-in with Google
+        </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="mdl-cell mdl-cell--12-col mdl-grid">
+
+        <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--6-col-desktop">
+            <span id="message-filler"></span>
+            <div class="message-container" *ngFor="let message of messages | async" [class.winner]="message.correct">
+                <div class="spacing">
+                    <div class="pic" [style.background-image]="'url(' + message.photoUrl + ')'"></div>
+                </div>
+                <div class="message">
+                    <span *ngIf="message.text">{{ message.text }}</span>
+                </div>
+                <div class="name">{{ message.name }}</div>
+            </div>
+            <form id="message-form" (submit)="saveMessage($event)">
+                <md-input-container class="message-input-full-width">
+                    <input mdInput [(ngModel)]="value" name="message" placeholder="Message...">
+                </md-input-container>
+                <button id="submit" [disabled]="!value" type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"> Send </button>
+            </form>
+        </div>
+    </div>
+</div>
