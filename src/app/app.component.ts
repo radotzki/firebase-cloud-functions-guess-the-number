@@ -14,6 +14,7 @@ export class AppComponent implements OnInit {
     messages: FirebaseListObservable<any>;
     profilePicStyles: {};
     value = '';
+    gameOver = false;
 
     constructor(
         public af: AngularFire,
@@ -37,6 +38,10 @@ export class AppComponent implements OnInit {
                     'background-image': PROFILE_PLACEHOLDER_IMAGE_URL
                 };
             }
+        });
+
+        this.af.database.object('/gameOver').subscribe(val => {
+            this.gameOver = val.$value;
         });
     }
 

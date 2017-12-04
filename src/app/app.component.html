@@ -35,7 +35,7 @@
                 <md-input-container class="message-input-full-width">
                     <input mdInput [(ngModel)]="value" name="message" placeholder="Message...">
                 </md-input-container>
-                <button id="submit" [disabled]="!value" type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"> Send </button>
+                <button id="submit" [disabled]="!value || gameOver" type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"> Send </button>
             </form>
         </div>
     </div>
